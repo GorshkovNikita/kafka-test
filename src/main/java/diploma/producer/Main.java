@@ -24,7 +24,10 @@ public class Main {
         props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 
-        TwitterStreamConnection.getInstance().getClient().connect();
+        TwitterStreamConnection.getInstance("YOcgp2ovL8js849lx8hbnvxcf",
+                "IUxjGCksxWJiBlQ5PMsp5O8ksT7ZAsTDspOQafm46gSkYnII4u",
+                "4482173056-cZrtVBDKyRoeciGNs0JaDBtaNgGEl1IHKIckeSI",
+                "1nCVck1dtozb334vxlyca9Wb3Gq5ob7USXEX5sIqmIugs").getClient().connect();
 
         //Status status = TwitterObjectFactory.createStatus("{text: \"asdad\"}");
         Producer<String, String> producer = new KafkaProducer<>(props);
