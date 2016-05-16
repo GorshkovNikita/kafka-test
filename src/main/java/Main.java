@@ -25,8 +25,8 @@ public class Main {
         //Status status = TwitterObjectFactory.createStatus("{text: \"asdad\"}");
         Producer<String, String> producer = new KafkaProducer<>(props);
         for(int i = 0; true ; i++) {
-            producer.send(new ProducerRecord<>("test", Integer.toString(i), "status" + i));
-            Thread.sleep(2000);
+            producer.send(new ProducerRecord<>("my-replicated-topic", Integer.toString(i), "status" + i));
+            //Thread.sleep(2000);
         }
 
         //producer.close();
