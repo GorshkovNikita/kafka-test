@@ -1,3 +1,5 @@
+package diploma.producer;
+
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -22,10 +24,12 @@ public class Main {
         props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 
+        TwitterStreamConnection.getInstance().getClient().connect();
+
         //Status status = TwitterObjectFactory.createStatus("{text: \"asdad\"}");
         Producer<String, String> producer = new KafkaProducer<>(props);
         for(int i = 0; true ; i++) {
-            producer.send(new ProducerRecord<>("my-replicated-topic", Integer.toString(i), "status" + i));
+            producer.send(new ProducerRecord<>("my-replicated-topic", Integer.toString(i), TwitterStreamConnection.getNextMessage()));
             //Thread.sleep(2000);
         }
 
