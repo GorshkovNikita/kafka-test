@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Никита on 03.04.2016.
- */
+ */ 
 public class TwitterStreamConnection {
     private static TwitterStreamConnection instance;
     private BlockingQueue<String> messageQueue;

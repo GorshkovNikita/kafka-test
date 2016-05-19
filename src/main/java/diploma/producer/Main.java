@@ -15,7 +15,8 @@ import java.util.Properties;
 public class Main {
     public static void main(String[] args) throws TwitterException, InterruptedException {
         Properties props = new Properties();
-        props.put("bootstrap.servers", "localhost:9092");
+        //props.put("metadata.broker.list", "fedora-0:9094,fedora-1:9092,fedora-1:9093");
+	props.put("bootstrap.servers", "fedora-0:9092,fedora-2:9092");
         props.put("acks", "all");
         props.put("retries", 0);
         props.put("batch.size", 16384);
