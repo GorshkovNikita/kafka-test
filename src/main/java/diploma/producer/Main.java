@@ -3,6 +3,7 @@ package diploma.producer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.common.metrics.Stat;
 import twitter4j.Status;
 import twitter4j.TwitterException;
 import twitter4j.TwitterObjectFactory;
@@ -30,10 +31,11 @@ public class Main {
                 "4482173056-cZrtVBDKyRoeciGNs0JaDBtaNgGEl1IHKIckeSI",
                 "1nCVck1dtozb334vxlyca9Wb3Gq5ob7USXEX5sIqmIugs").getClient().connect();
 
+        Status status = TwitterObjectFactory.createStatus("{\"text\": \"status" + 0 + "\"}");
 //        Status status = TwitterObjectFactory.createStatus("{text: \"asdad\"}");
         Producer<String, String> producer = new KafkaProducer<>(props);
         for(int i = 0; true ; i++) {
-            producer.send(new ProducerRecord<>("my-replicated-topic", Integer.toString(i), TwitterObjectFactory.createStatus("{text: \"status\" + i + "}");
+            producer.send(new ProducerRecord<>("my-replicated-topic", Integer.toString(i), "{\"text\": \"status" + i + "\"}"));
             //producer.send(new ProducerRecord<>("my-replicated-topic", Integer.toString(i), TwitterStreamConnection.getNextMessage()));
             //Thread.sleep(2000);
         }
