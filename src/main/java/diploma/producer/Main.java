@@ -31,13 +31,12 @@ public class Main {
                 "4482173056-cZrtVBDKyRoeciGNs0JaDBtaNgGEl1IHKIckeSI",
                 "1nCVck1dtozb334vxlyca9Wb3Gq5ob7USXEX5sIqmIugs").getClient().connect();
 
-        Status status = TwitterObjectFactory.createStatus("{\"text\": \"status" + 0 + "\"}");
-//        Status status = TwitterObjectFactory.createStatus("{text: \"asdad\"}");
+//        Status status = TwitterObjectFactory.createStatus("{\"text\": \"status" + 0 + "\"}");
         Producer<String, String> producer = new KafkaProducer<>(props);
         for(int i = 0; true ; i++) {
             producer.send(new ProducerRecord<>("my-replicated-topic", Integer.toString(i), "{\"text\": \"status" + i + "\"}"));
             //producer.send(new ProducerRecord<>("my-replicated-topic", Integer.toString(i), TwitterStreamConnection.getNextMessage()));
-            //Thread.sleep(2000);
+            Thread.sleep(250);
         }
 
         //producer.close();
