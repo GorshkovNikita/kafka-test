@@ -33,10 +33,10 @@ public class Main {
 
 //        Status status = TwitterObjectFactory.createStatus("{\"text\": \"status" + 0 + "\"}");
         Producer<String, String> producer = new KafkaProducer<>(props);
-        for(int i = 0; i < 500; i++) {
+        for(int i = 0; i < 20000; i++) {
             producer.send(new ProducerRecord<>("my-replicated-topic", Integer.toString(i), "{\"text\": \"status" + i + "\"}"));
             //producer.send(new ProducerRecord<>("my-replicated-topic", Integer.toString(i), TwitterStreamConnection.getNextMessage()));
-            //Thread.sleep(250);
+            Thread.sleep(250);
         }
 
         producer.close();
