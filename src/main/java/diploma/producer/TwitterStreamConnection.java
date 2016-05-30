@@ -29,7 +29,7 @@ public class TwitterStreamConnection {
 //        locations.add(new Location(new Location.Coordinate(37, 55), new Location.Coordinate(38, 56)));
 //        endpoint.locations(locations);
         StatusesSampleEndpoint endpoint = new StatusesSampleEndpoint();
-        //endpoint.languages(new ArrayList<String>(Arrays.asList("en")));
+        endpoint.languages(new ArrayList<String>(Arrays.asList("en-US")));
         endpoint.stallWarnings(false);
         Authentication auth = new OAuth1(consumerKey, consumerSecret, token, secret);
         this.client = new ClientBuilder()
