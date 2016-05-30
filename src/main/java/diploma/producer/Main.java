@@ -67,6 +67,6 @@ public class Main {
         //}
 
         TwitterStreamConnection.getInstance().getClient().stop();
-//        producer.close();
+        producer.close();
     }
 }
