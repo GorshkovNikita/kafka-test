@@ -27,7 +27,7 @@ public class Main {
         props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 
-        Producer<Integer, String> producer = new KafkaProducer<>(props);
+        Producer<String, String> producer = new KafkaProducer<>(props);
 
         TwitterStreamConnection.getInstance("YOcgp2ovL8js849lx8hbnvxcf",
                 "IUxjGCksxWJiBlQ5PMsp5O8ksT7ZAsTDspOQafm46gSkYnII4u",
@@ -47,7 +47,7 @@ public class Main {
                 System.out.println("Did not receive a message in 1 second");
             } else {
                 i++;
-                producer.send(new ProducerRecord<>("my-replicated-topic", i, msg));
+                producer.send(new ProducerRecord<>("my-replicated-topic", Integer.toString(i), msg));
                 if (i == 2000)
                     break;
 //                try {
