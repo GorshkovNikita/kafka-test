@@ -48,7 +48,7 @@ public class Main {
             } else {
                 i++;
                 producer.send(new ProducerRecord<>("my-replicated-topic", Integer.toString(i), msg));
-                if (i == 2000)
+                if (i == 10000)
                     break;
 //                try {
 //                    Status status = TwitterObjectFactory.createStatus(msg);
