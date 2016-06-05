@@ -18,7 +18,7 @@ public class Main {
     public static void main(String[] args) throws TwitterException, InterruptedException {
         Properties props = new Properties();
         //props.put("metadata.broker.list", "fedora-0:9094,fedora-1:9092,fedora-1:9093");
-        props.put("bootstrap.servers", "fedora-0:9092,fedora-2:9092");
+        props.put("bootstrap.servers", "172.31.22.14:9092");
         props.put("acks", "all");
         props.put("retries", 0);
         props.put("batch.size", 16384);
@@ -48,7 +48,7 @@ public class Main {
             } else {
                 i++;
                 producer.send(new ProducerRecord<>("my-replicated-topic", Integer.toString(i), msg));
-                if (i == 100000)
+                if (i == 1000)
                     break;
 //                try {
 //                    Status status = TwitterObjectFactory.createStatus(msg);
