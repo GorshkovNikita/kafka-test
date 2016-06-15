@@ -17,8 +17,7 @@ import java.util.Random;
 public class Main {
     public static void main(String[] args) throws TwitterException, InterruptedException {
         Properties props = new Properties();
-        //props.put("metadata.broker.list", "fedora-0:9094,fedora-1:9092,fedora-1:9093");
-        props.put("bootstrap.servers", "172.31.22.14:9092");
+        props.put("bootstrap.servers", "192.168.1.23:9092, 192.168.1.22:9092");
         props.put("acks", "all");
         props.put("retries", 0);
         props.put("batch.size", 16384);
@@ -67,6 +66,6 @@ public class Main {
         //}
 
         TwitterStreamConnection.getInstance().getClient().stop();
-        producer.close();
+        //producer.close();
     }
 }
