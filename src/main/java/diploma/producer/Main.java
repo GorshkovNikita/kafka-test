@@ -8,37 +8,52 @@ import twitter4j.Status;
 import twitter4j.TwitterException;
 import twitter4j.TwitterObjectFactory;
 
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
+import java.nio.file.*;
 import java.util.Properties;
 import java.util.Random;
+import java.util.UUID;
 
 /**
  * Created by Никита on 21.04.2016.
  */
 public class Main {
-    public static void main(String[] args) throws TwitterException, InterruptedException, FileNotFoundException, UnsupportedEncodingException {
-        Properties props = new Properties();
-        props.put("bootstrap.servers", "192.168.1.23:9092, 192.168.1.22:9092");
-        props.put("acks", "all");
-        props.put("retries", 0);
-        props.put("batch.size", 16384);
-        props.put("linger.ms", 1);
-        props.put("buffer.memory", 33554432);
-        props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-        props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+    public static int i = 0;
 
-        //Producer<String, String> producer = new KafkaProducer<>(props);
+    public static void main(String[] args) throws TwitterException, InterruptedException, IOException {
+        Path path;
+        if (args.length < 1) {
+            System.out.println("Arguments not found");
+            return;
+        }
+        else if (args.length == 2)
+            path = Paths.get(args[1]);
+        else
+            path = Paths.get("/home/ngorshkov/diploma/tweets/text-tweets.txt");
 
+        if (args[0].equals("kafka"))
+            sendFromFileToKafka(path);
+        else if (args[0].equals("file"))
+            sendFromTwitterToFile(path);
+    }
+
+    public static void sendFromFileToKafka(Path path) throws IOException {
+        Producer<String, String> producer = createProducer();
+        Files.lines(path).forEach((line) -> {
+            producer.send(new ProducerRecord<>("my-replicated-topic", Integer.toString(getNextInt()), line));
+        });
+        producer.close();
+    }
+
+    public static void sendFromTwitterToFile(Path path) throws IOException {
         TwitterStreamConnection.getInstance("YOcgp2ovL8js849lx8hbnvxcf",
                 "IUxjGCksxWJiBlQ5PMsp5O8ksT7ZAsTDspOQafm46gSkYnII4u",
                 "4482173056-cZrtVBDKyRoeciGNs0JaDBtaNgGEl1IHKIckeSI",
                 "1nCVck1dtozb334vxlyca9Wb3Gq5ob7USXEX5sIqmIugs").getClient().connect();
 
-        Random random = new Random();
-        PrintWriter jsonWriter = new PrintWriter("~/diploma/tweets/json-tweets.txt", "UTF-8");
-        //PrintWriter textWriter = new PrintWriter("~/diploma/tweets/text-tweets.txt", "UTF-8");
+        if (!Files.exists(path))
+            Files.createFile(path);
+        FileWriter jsonWriter = new FileWriter(path.toFile(), true);
         int i = 0;
         while (true) {
             if (TwitterStreamConnection.getInstance().getClient().isDone()) {
@@ -51,29 +66,29 @@ public class Main {
                 System.out.println("Did not receive a message in 1 second");
             } else {
                 i++;
-                jsonWriter.write(msg);
-                //producer.send(new ProducerRecord<>("my-replicated-topic", Integer.toString(i), msg));
-                if (i == 500000)
+                jsonWriter.append(msg);
+                if (i == 100000)
                     break;
-//                try {
-//                    Status status = TwitterObjectFactory.createStatus(msg);
-//                    System.out.println(status.getUser().getName() + " posted " + status.getText());
-//                }
-//                catch (TwitterException ex) {
-//                    // cannot parse json, just ignore it
-//                }
             }
         }
-
         jsonWriter.close();
-
-        //for(int i = 0; i < 500; i++) {
-            //producer.send(new ProducerRecord<>("my-replicated-topic", Integer.toString(i), "{\"text\": \"status" + i+ "\"}"));
-            //producer.send(new ProducerRecord<>("my-replicated-topic", Integer.toString(i), TwitterStreamConnection.getNextMessage()));
-            //Thread.sleep(250);
-        //}
-
         TwitterStreamConnection.getInstance().getClient().stop();
-        //producer.close();
+    }
+
+    public static int getNextInt() {
+        return ++i;
+    }
+
+    public static Producer<String, String> createProducer() {
+        Properties props = new Properties();
+        props.put("bootstrap.servers", "192.168.1.23:9092, 192.168.1.22:9092");
+        props.put("acks", "all");
+        props.put("retries", 0);
+        props.put("batch.size", 16384);
+        props.put("linger.ms", 1);
+        props.put("buffer.memory", 33554432);
+        props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+        props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+        return new KafkaProducer<>(props);
     }
 }
