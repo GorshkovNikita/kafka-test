@@ -29,7 +29,7 @@ public class Main {
         else if (args.length == 2)
             path = Paths.get(args[1]);
         else
-            path = Paths.get("/home/ngorshkov/diploma/tweets/text-tweets.txt");
+            path = Paths.get("/home/ngorshkov/diploma/tweets/json-tweets.txt");
 
         if (args[0].equals("kafka"))
             sendFromFileToKafka(path);
