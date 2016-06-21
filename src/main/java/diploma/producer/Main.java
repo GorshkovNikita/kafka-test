@@ -39,9 +39,29 @@ public class Main {
 
     public static void sendFromFileToKafka(Path path) throws IOException {
         Producer<String, String> producer = createProducer();
-        Files.lines(path).forEach((line) -> {
-            producer.send(new ProducerRecord<>("my-replicated-topic", Integer.toString(getNextInt()), line));
-        });
+//        Files.lines(path).forEach((line) -> {
+//            producer.send(new ProducerRecord<>("my-replicated-topic", Integer.toString(getNextInt()), line));
+//        });
+
+        try (BufferedReader br = new BufferedReader(new FileReader(path.toString()))) {
+            String line = null;
+            do {
+                long start = System.currentTimeMillis();
+                for (int i = 0; i < 1000; i++) {
+                    line = br.readLine();
+                    if (line != null) {
+                        producer.send(new ProducerRecord<>("my-replicated-topic", Integer.toString(getNextInt()), line));
+                    }
+                    else break;
+                }
+                long finish = System.currentTimeMillis() - start;
+                Thread.sleep(1000 - finish);
+            } while (line != null);
+        }
+        catch (InterruptedException | IOException | IllegalArgumentException ex) {
+            ex.printStackTrace();
+        }
+
         producer.close();
     }
 
