@@ -47,7 +47,7 @@ public class Main {
             String line = null;
             do {
                 long start = System.currentTimeMillis();
-                for (int i = 0; i < 1000; i++) {
+                for (int i = 0; i < 50000; i++) {
                     line = br.readLine();
                     if (line != null) {
                         producer.send(new ProducerRecord<>("my-replicated-topic", Integer.toString(getNextInt()), line));
@@ -55,7 +55,11 @@ public class Main {
                     else break;
                 }
                 long finish = System.currentTimeMillis() - start;
-                Thread.sleep(1000 - finish);
+                long sleepTime = 10000 - finish;
+                if (sleepTime < 10000)
+                    Thread.sleep(sleepTime);
+                else
+                    System.out.println(sleepTime + " is negative");
             } while (line != null);
         }
         catch (InterruptedException | IOException | IllegalArgumentException ex) {
@@ -101,7 +105,7 @@ public class Main {
 
     public static Producer<String, String> createProducer() {
         Properties props = new Properties();
-        props.put("bootstrap.servers", "192.168.1.23:9092, 192.168.1.22:9092");
+        props.put("bootstrap.servers", "192.168.1.22:9092");
         props.put("acks", "all");
         props.put("retries", 0);
         props.put("batch.size", 16384);
