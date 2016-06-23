@@ -21,23 +21,37 @@ public class Main {
     public static int i = 0;
 
     public static void main(String[] args) throws TwitterException, InterruptedException, IOException {
-        Path path;
+        Path path = Paths.get("/home/ngorshkov/diploma/tweets/json-tweets.txt");
+        Integer rate;
         if (args.length < 1) {
             System.out.println("Arguments not found");
             return;
         }
-        else if (args.length == 2)
-            path = Paths.get(args[1]);
-        else
-            path = Paths.get("/home/ngorshkov/diploma/tweets/json-tweets.txt");
 
-        if (args[0].equals("kafka"))
-            sendFromFileToKafka(path);
-        else if (args[0].equals("file"))
+        if (args[0].equals("kafka")) {
+            if (args.length < 2) {
+                System.out.println("Rate not found");
+                return;
+            }
+            try {
+                rate = Integer.parseInt(args[1]);
+            }
+            catch (NumberFormatException ex) {
+                System.out.println(ex.getMessage());
+                return;
+            }
+            if (args.length == 3)
+                path = Paths.get(args[2]);
+            sendFromFileToKafka(path, rate);
+        }
+        else if (args[0].equals("file")) {
+            if (args.length == 2)
+                path = Paths.get(args[1]);
             sendFromTwitterToFile(path);
+        }
     }
 
-    public static void sendFromFileToKafka(Path path) throws IOException {
+    public static void sendFromFileToKafka(Path path, Integer rate) throws IOException {
         Producer<String, String> producer = createProducer();
 //        Files.lines(path).forEach((line) -> {
 //            producer.send(new ProducerRecord<>("my-replicated-topic", Integer.toString(getNextInt()), line));
@@ -47,7 +61,7 @@ public class Main {
             String line = null;
             do {
                 long start = System.currentTimeMillis();
-                for (int i = 0; i < 50000; i++) {
+                for (int i = 0; i < rate; i++) {
                     line = br.readLine();
                     if (line != null) {
                         producer.send(new ProducerRecord<>("my-replicated-topic", Integer.toString(getNextInt()), line));
@@ -55,8 +69,8 @@ public class Main {
                     else break;
                 }
                 long finish = System.currentTimeMillis() - start;
-                long sleepTime = 10000 - finish;
-                if (sleepTime < 10000)
+                long sleepTime = 1000 - finish;
+                if (sleepTime > 0)
                     Thread.sleep(sleepTime);
                 else
                     System.out.println(sleepTime + " is negative");
