@@ -13,6 +13,8 @@ import java.nio.file.*;
 import java.util.Properties;
 import java.util.Random;
 import java.util.UUID;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Created by Никита on 21.04.2016.
@@ -44,6 +46,9 @@ public class Main {
                 path = Paths.get(args[2]);
             sendFromFileToKafka(path, rate);
         }
+        else if (args[0].equals("")) {
+
+        }
         else if (args[0].equals("file")) {
             if (args.length == 2)
                 path = Paths.get(args[1]);
@@ -57,12 +62,18 @@ public class Main {
 //            producer.send(new ProducerRecord<>("my-replicated-topic", Integer.toString(getNextInt()), line));
 //        });
 
-        try (BufferedReader br = new BufferedReader(new FileReader(path.toString()))) {
+        BlockingQueue<String> tweets = new LinkedBlockingQueue<>();
+        Thread readingThread = new Thread(new Reading(path, tweets));
+        readingThread.setDaemon(true);
+        readingThread.start();
+        //try (BufferedReader br = new BufferedReader(new FileReader(path.toString()))) {
+        try {
             String line = null;
             do {
                 long start = System.currentTimeMillis();
                 for (int i = 0; i < rate; i++) {
-                    line = br.readLine();
+                    // line = br.readLine();
+                    line = tweets.poll();
                     if (line != null) {
                         producer.send(new ProducerRecord<>("my-replicated-topic", Integer.toString(getNextInt()), line));
                     }
@@ -76,7 +87,7 @@ public class Main {
                     System.out.println(sleepTime + " is negative");
             } while (line != null);
         }
-        catch (InterruptedException | IOException | IllegalArgumentException ex) {
+        catch (InterruptedException /*| IOException*/ | IllegalArgumentException ex) {
             ex.printStackTrace();
         }
 
@@ -119,7 +130,7 @@ public class Main {
 
     public static Producer<String, String> createProducer() {
         Properties props = new Properties();
-        props.put("bootstrap.servers", "192.168.1.22:9092");
+        props.put("bootstrap.servers", "172.31.16.35:9092");
         props.put("acks", "all");
         props.put("retries", 0);
         props.put("batch.size", 16384);
