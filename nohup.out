@@ -1,0 +1,294 @@
+[main] INFO com.twitter.hbc.httpclient.BasicClient - New connection executed: sampleExampleClient, endpoint: /1.1/statuses/sample.json?delimited=length
+[hosebird-client-io-thread-0] INFO com.twitter.hbc.httpclient.ClientBase - sampleExampleClient Establishing a connection
+[hosebird-client-io-thread-0] INFO com.twitter.hbc.httpclient.ClientBase - sampleExampleClient Processing connection data
+[main] INFO com.twitter.hbc.httpclient.BasicClient - New connection executed: sampleExampleClient, endpoint: /1.1/statuses/sample.json?delimited=length
+[hosebird-client-io-thread-0] INFO com.twitter.hbc.httpclient.ClientBase - sampleExampleClient Establishing a connection
+Did not receive a message in 1 second
+[hosebird-client-io-thread-0] INFO com.twitter.hbc.httpclient.ClientBase - sampleExampleClient Processing connection data
+Did not receive a message in 1 second
+Did not receive a message in 1 second
+Did not receive a message in 1 second
+Did not receive a message in 1 second
+Did not receive a message in 1 second
+Did not receive a message in 1 second
+Did not receive a message in 1 second
+Did not receive a message in 1 second
+Did not receive a message in 1 second
+Did not receive a message in 1 second
+Did not receive a message in 1 second
+Did not receive a message in 1 second
+Did not receive a message in 1 second
+Did not receive a message in 1 second
+Did not receive a message in 1 second
+Did not receive a message in 1 second
+Did not receive a message in 1 second
+Did not receive a message in 1 second
+Did not receive a message in 1 second
+Did not receive a message in 1 second
+Did not receive a message in 1 second
+Did not receive a message in 1 second
+Did not receive a message in 1 second
+Did not receive a message in 1 second
+Did not receive a message in 1 second
+Did not receive a message in 1 second
+Did not receive a message in 1 second
+Did not receive a message in 1 second
+Did not receive a message in 1 second
+Did not receive a message in 1 second
+[main] INFO com.twitter.hbc.httpclient.BasicClient - Stopping the client: sampleExampleClient, endpoint: /1.1/statuses/sample.json?delimited=length
+[main] INFO com.twitter.hbc.httpclient.ClientBase - sampleExampleClient exit event - Stopped by user: waiting for 5000 ms
+[hosebird-client-io-thread-0] INFO com.twitter.hbc.httpclient.ClientBase - sampleExampleClient Done processing, preparing to close connection
+[hosebird-client-io-thread-0] INFO com.twitter.hbc.httpclient.ClientBase - sampleExampleClient Shutting down httpclient connection manager
+[main] INFO com.twitter.hbc.httpclient.BasicClient - Successfully stopped the client: sampleExampleClient, endpoint: /1.1/statuses/sample.json?delimited=length
+[2016-07-18 04:53:24,235] INFO KafkaConfig values: 
+	advertised.host.name = null
+	metric.reporters = []
+	quota.producer.default = 9223372036854775807
+	offsets.topic.num.partitions = 50
+	log.flush.interval.messages = 9223372036854775807
+	auto.create.topics.enable = true
+	controller.socket.timeout.ms = 30000
+	log.flush.interval.ms = null
+	principal.builder.class = class org.apache.kafka.common.security.auth.DefaultPrincipalBuilder
+	replica.socket.receive.buffer.bytes = 65536
+	min.insync.replicas = 1
+	replica.fetch.wait.max.ms = 500
+	num.recovery.threads.per.data.dir = 1
+	ssl.keystore.type = JKS
+	default.replication.factor = 1
+	ssl.truststore.password = null
+	log.preallocate = false
+	sasl.kerberos.principal.to.local.rules = [DEFAULT]
+	fetch.purgatory.purge.interval.requests = 1000
+	ssl.endpoint.identification.algorithm = null
+	replica.socket.timeout.ms = 30000
+	message.max.bytes = 1000012
+	num.io.threads = 8
+	offsets.commit.required.acks = -1
+	log.flush.offset.checkpoint.interval.ms = 60000
+	delete.topic.enable = true
+	quota.window.size.seconds = 1
+	ssl.truststore.type = JKS
+	offsets.commit.timeout.ms = 5000
+	quota.window.num = 11
+	zookeeper.connect = 172.31.22.231:2181
+	authorizer.class.name = 
+	num.replica.fetchers = 1
+	log.retention.ms = null
+	log.roll.jitter.hours = 0
+	log.cleaner.enable = true
+	offsets.load.buffer.size = 5242880
+	log.cleaner.delete.retention.ms = 86400000
+	ssl.client.auth = none
+	controlled.shutdown.max.retries = 3
+	queued.max.requests = 500
+	offsets.topic.replication.factor = 3
+	log.cleaner.threads = 1
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	socket.request.max.bytes = 104857600
+	ssl.trustmanager.algorithm = PKIX
+	zookeeper.session.timeout.ms = 6000
+	log.retention.bytes = -1
+	sasl.kerberos.min.time.before.relogin = 60000
+	zookeeper.set.acl = false
+	connections.max.idle.ms = 600000
+	offsets.retention.minutes = 1440
+	replica.fetch.backoff.ms = 1000
+	inter.broker.protocol.version = 0.9.0.X
+	log.retention.hours = 168
+	num.partitions = 1
+	broker.id.generation.enable = true
+	listeners = PLAINTEXT://:9092
+	ssl.provider = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]
+	log.roll.ms = null
+	log.flush.scheduler.interval.ms = 9223372036854775807
+	ssl.cipher.suites = null
+	log.index.size.max.bytes = 10485760
+	ssl.keymanager.algorithm = SunX509
+	security.inter.broker.protocol = PLAINTEXT
+	replica.fetch.max.bytes = 1048576
+	advertised.port = null
+	log.cleaner.dedupe.buffer.size = 134217728
+	replica.high.watermark.checkpoint.interval.ms = 5000
+	log.cleaner.io.buffer.size = 524288
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	zookeeper.connection.timeout.ms = 6000
+	controlled.shutdown.retry.backoff.ms = 5000
+	log.roll.hours = 168
+	log.cleanup.policy = delete
+	host.name = 
+	log.roll.jitter.ms = null
+	max.connections.per.ip = 2147483647
+	offsets.topic.segment.bytes = 104857600
+	background.threads = 10
+	quota.consumer.default = 9223372036854775807
+	request.timeout.ms = 30000
+	log.index.interval.bytes = 4096
+	log.dir = /tmp/kafka-logs
+	log.segment.bytes = 1073741824
+	log.cleaner.backoff.ms = 15000
+	offset.metadata.max.bytes = 4096
+	ssl.truststore.location = null
+	group.max.session.timeout.ms = 30000
+	ssl.keystore.password = null
+	zookeeper.sync.time.ms = 2000
+	port = 9092
+	log.retention.minutes = null
+	log.segment.delete.delay.ms = 60000
+	log.dirs = /home/ec2-user/diploma/kafka-logs
+	controlled.shutdown.enable = true
+	compression.type = producer
+	max.connections.per.ip.overrides = 
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	log.cleaner.io.max.bytes.per.second = 1.7976931348623157E308
+	auto.leader.rebalance.enable = true
+	leader.imbalance.check.interval.seconds = 300
+	log.cleaner.min.cleanable.ratio = 0.5
+	replica.lag.time.max.ms = 10000
+	num.network.threads = 3
+	ssl.key.password = null
+	reserved.broker.max.id = 1000
+	metrics.num.samples = 2
+	socket.send.buffer.bytes = 102400
+	ssl.protocol = TLS
+	socket.receive.buffer.bytes = 102400
+	ssl.keystore.location = null
+	replica.fetch.min.bytes = 1
+	unclean.leader.election.enable = true
+	group.min.session.timeout.ms = 6000
+	log.cleaner.io.buffer.load.factor = 0.9
+	offsets.retention.check.interval.ms = 600000
+	producer.purgatory.purge.interval.requests = 1000
+	metrics.sample.window.ms = 30000
+	broker.id = 0
+	offsets.topic.compression.codec = 0
+	log.retention.check.interval.ms = 300000
+	advertised.listeners = null
+	leader.imbalance.per.broker.percentage = 10
+ (kafka.server.KafkaConfig)
+[2016-07-18 04:53:24,309] INFO starting (kafka.server.KafkaServer)
+[2016-07-18 04:53:24,313] INFO Connecting to zookeeper on 172.31.22.231:2181 (kafka.server.KafkaServer)
+[2016-07-18 04:53:24,326] INFO Starting ZkClient event thread. (org.I0Itec.zkclient.ZkEventThread)
+[2016-07-18 04:53:24,326] INFO Client environment:zookeeper.version=3.4.6-1569965, built on 02/20/2014 09:09 GMT (org.apache.zookeeper.ZooKeeper)
+[2016-07-18 04:53:24,326] INFO Client environment:host.name=ip-172-31-16-35.us-west-2.compute.internal (org.apache.zookeeper.ZooKeeper)
+[2016-07-18 04:53:24,326] INFO Client environment:java.version=1.8.0_91 (org.apache.zookeeper.ZooKeeper)
+[2016-07-18 04:53:24,327] INFO Client environment:java.vendor=Oracle Corporation (org.apache.zookeeper.ZooKeeper)
+[2016-07-18 04:53:24,327] INFO Client environment:java.home=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.91-0.b14.el7_2.x86_64/jre (org.apache.zookeeper.ZooKeeper)
+[2016-07-18 04:53:24,327] INFO Client environment:java.class.path=:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/scala-library-2.10.5.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/zookeeper-3.4.6.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/zkclient-0.7.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/metrics-core-2.2.0.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/jopt-simple-3.2.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/kafka_2.10-0.9.0.1.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/kafka_2.10-0.9.0.1-sources.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/kafka_2.10-0.9.0.1-javadoc.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/kafka_2.10-0.9.0.1-scaladoc.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/kafka_2.10-0.9.0.1-test.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/kafka-tools-0.9.0.1.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/kafka-log4j-appender-0.9.0.1.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/argparse4j-0.5.0.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/slf4j-log4j12-1.7.6.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/connect-api-0.9.0.1.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/lz4-1.2.0.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/log4j-1.2.17.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/slf4j-api-1.7.6.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/snappy-java-1.1.1.7.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/connect-runtime-0.9.0.1.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/jetty-server-9.2.12.v20150709.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/jetty-servlet-9.2.12.v20150709.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/jackson-jaxrs-json-provider-2.5.4.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/jersey-container-servlet-2.22.1.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/javax.servlet-api-3.1.0.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/jetty-http-9.2.12.v20150709.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/jetty-io-9.2.12.v20150709.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/jetty-security-9.2.12.v20150709.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/jackson-jaxrs-base-2.5.4.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/jackson-module-jaxb-annotations-2.5.4.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/jersey-container-servlet-core-2.22.1.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/jersey-common-2.22.1.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/jersey-server-2.22.1.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/javax.ws.rs-api-2.0.1.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/jetty-util-9.2.12.v20150709.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/javax.inject-2.4.0-b31.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/javax.annotation-api-1.2.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/jersey-guava-2.22.1.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/hk2-api-2.4.0-b31.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/hk2-locator-2.4.0-b31.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/osgi-resource-locator-1.0.1.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/jersey-client-2.22.1.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/jersey-media-jaxb-2.22.1.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/validation-api-1.1.0.Final.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/hk2-utils-2.4.0-b31.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/aopalliance-repackaged-2.4.0-b31.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/javassist-3.18.1-GA.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/javax.inject-1.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/connect-json-0.9.0.1.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/jackson-databind-2.5.4.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/jackson-annotations-2.5.0.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/jackson-core-2.5.4.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/connect-file-0.9.0.1.jar:/home/ec2-user/diploma/kafka_2.10-0.9.0.1/bin/../libs/kafka-clients-0.9.0.1.jar (org.apache.zookeeper.ZooKeeper)
+[2016-07-18 04:53:24,327] INFO Client environment:java.library.path=/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib (org.apache.zookeeper.ZooKeeper)
+[2016-07-18 04:53:24,327] INFO Client environment:java.io.tmpdir=/tmp (org.apache.zookeeper.ZooKeeper)
+[2016-07-18 04:53:24,327] INFO Client environment:java.compiler=<NA> (org.apache.zookeeper.ZooKeeper)
+[2016-07-18 04:53:24,327] INFO Client environment:os.name=Linux (org.apache.zookeeper.ZooKeeper)
+[2016-07-18 04:53:24,327] INFO Client environment:os.arch=amd64 (org.apache.zookeeper.ZooKeeper)
+[2016-07-18 04:53:24,327] INFO Client environment:os.version=3.10.0-327.el7.x86_64 (org.apache.zookeeper.ZooKeeper)
+[2016-07-18 04:53:24,327] INFO Client environment:user.name=ec2-user (org.apache.zookeeper.ZooKeeper)
+[2016-07-18 04:53:24,327] INFO Client environment:user.home=/home/ec2-user (org.apache.zookeeper.ZooKeeper)
+[2016-07-18 04:53:24,327] INFO Client environment:user.dir=/home/ec2-user/diploma/kafka_2.10-0.9.0.1 (org.apache.zookeeper.ZooKeeper)
+[2016-07-18 04:53:24,328] INFO Initiating client connection, connectString=172.31.22.231:2181 sessionTimeout=6000 watcher=org.I0Itec.zkclient.ZkClient@1ffe63b9 (org.apache.zookeeper.ZooKeeper)
+[2016-07-18 04:53:24,340] INFO Opening socket connection to server 172.31.22.231/172.31.22.231:2181. Will not attempt to authenticate using SASL (unknown error) (org.apache.zookeeper.ClientCnxn)
+[2016-07-18 04:53:24,353] INFO Waiting for keeper state SyncConnected (org.I0Itec.zkclient.ZkClient)
+[2016-07-18 04:53:24,422] INFO Socket connection established to 172.31.22.231/172.31.22.231:2181, initiating session (org.apache.zookeeper.ClientCnxn)
+[2016-07-18 04:53:24,427] INFO Session establishment complete on server 172.31.22.231/172.31.22.231:2181, sessionid = 0x155fcf10a3e0015, negotiated timeout = 6000 (org.apache.zookeeper.ClientCnxn)
+[2016-07-18 04:53:24,428] INFO zookeeper state changed (SyncConnected) (org.I0Itec.zkclient.ZkClient)
+[2016-07-18 04:53:24,580] INFO Loading logs. (kafka.log.LogManager)
+[2016-07-18 04:53:24,588] INFO Logs loading complete. (kafka.log.LogManager)
+[2016-07-18 04:53:24,659] INFO Starting log cleanup with a period of 300000 ms. (kafka.log.LogManager)
+[2016-07-18 04:53:24,662] INFO Starting log flusher with a default period of 9223372036854775807 ms. (kafka.log.LogManager)
+[2016-07-18 04:53:24,667] WARN No meta.properties file under dir /home/ec2-user/diploma/kafka-logs/meta.properties (kafka.server.BrokerMetadataCheckpoint)
+[2016-07-18 04:53:24,754] INFO Awaiting socket connections on 0.0.0.0:9092. (kafka.network.Acceptor)
+[2016-07-18 04:53:24,769] INFO [Socket Server on Broker 0], Started 1 acceptor threads (kafka.network.SocketServer)
+[2016-07-18 04:53:24,818] INFO [ExpirationReaper-0], Starting  (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)
+[2016-07-18 04:53:24,830] INFO [ExpirationReaper-0], Starting  (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)
+[2016-07-18 04:53:24,877] INFO Creating /controller (is it secure? false) (kafka.utils.ZKCheckedEphemeral)
+[2016-07-18 04:53:24,883] INFO Result of znode creation is: OK (kafka.utils.ZKCheckedEphemeral)
+[2016-07-18 04:53:24,884] INFO 0 successfully elected as leader (kafka.server.ZookeeperLeaderElector)
+[2016-07-18 04:53:25,101] INFO New leader is 0 (kafka.server.ZookeeperLeaderElector$LeaderChangeListener)
+[2016-07-18 04:53:25,108] INFO [GroupCoordinator 0]: Starting up. (kafka.coordinator.GroupCoordinator)
+[2016-07-18 04:53:25,115] INFO [Group Metadata Manager on Broker 0]: Removed 0 expired offsets in 4 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2016-07-18 04:53:25,119] INFO [ExpirationReaper-0], Starting  (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)
+[2016-07-18 04:53:25,120] INFO [GroupCoordinator 0]: Startup complete. (kafka.coordinator.GroupCoordinator)
+[2016-07-18 04:53:25,122] INFO [ExpirationReaper-0], Starting  (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)
+[2016-07-18 04:53:25,137] INFO [ThrottledRequestReaper-Produce], Starting  (kafka.server.ClientQuotaManager$ThrottledRequestReaper)
+[2016-07-18 04:53:25,141] INFO [ThrottledRequestReaper-Fetch], Starting  (kafka.server.ClientQuotaManager$ThrottledRequestReaper)
+[2016-07-18 04:53:25,144] INFO Will not load MX4J, mx4j-tools.jar is not in the classpath (kafka.utils.Mx4jLoader$)
+[2016-07-18 04:53:25,154] INFO Creating /brokers/ids/0 (is it secure? false) (kafka.utils.ZKCheckedEphemeral)
+[2016-07-18 04:53:25,158] INFO Result of znode creation is: OK (kafka.utils.ZKCheckedEphemeral)
+[2016-07-18 04:53:25,159] INFO Registered broker 0 at path /brokers/ids/0 with addresses: PLAINTEXT -> EndPoint(ip-172-31-16-35.us-west-2.compute.internal,9092,PLAINTEXT) (kafka.utils.ZkUtils)
+[2016-07-18 04:53:25,167] INFO Kafka version : 0.9.0.1 (org.apache.kafka.common.utils.AppInfoParser)
+[2016-07-18 04:53:25,167] INFO Kafka commitId : 23c69d62a0cabf06 (org.apache.kafka.common.utils.AppInfoParser)
+[2016-07-18 04:53:25,167] INFO [Kafka Server 0], started (kafka.server.KafkaServer)
+[2016-07-18 04:53:25,483] INFO [ReplicaFetcherManager on broker 0] Removed fetcher for partitions [my-replicated-topic,0] (kafka.server.ReplicaFetcherManager)
+[2016-07-18 04:53:25,534] INFO Completed load of log my-replicated-topic-0 with log end offset 0 (kafka.log.Log)
+[2016-07-18 04:53:25,536] INFO Created log for partition [my-replicated-topic,0] in /home/ec2-user/diploma/kafka-logs with properties {compression.type -> producer, file.delete.delay.ms -> 60000, max.message.bytes -> 1000012, min.insync.replicas -> 1, segment.jitter.ms -> 0, preallocate -> false, min.cleanable.dirty.ratio -> 0.5, index.interval.bytes -> 4096, unclean.leader.election.enable -> true, retention.bytes -> -1, delete.retention.ms -> 86400000, cleanup.policy -> delete, flush.ms -> 9223372036854775807, segment.ms -> 604800000, segment.bytes -> 1073741824, retention.ms -> 604800000, segment.index.bytes -> 10485760, flush.messages -> 9223372036854775807}. (kafka.log.LogManager)
+[2016-07-18 04:53:25,556] INFO [ReplicaFetcherManager on broker 0] Removed fetcher for partitions [my-replicated-topic,0] (kafka.server.ReplicaFetcherManager)
+[2016-07-18 04:54:52,326] INFO Rolled new log segment for 'my-replicated-topic-0' in 6 ms. (kafka.log.Log)
+[2016-07-18 04:56:39,876] FATAL [Replica Manager on Broker 0]: Halting due to unrecoverable I/O error while handling produce request:  (kafka.server.ReplicaManager)
+kafka.common.KafkaStorageException: I/O exception in append to log 'my-replicated-topic-0'
+	at kafka.log.Log.append(Log.scala:318)
+	at kafka.cluster.Partition$$anonfun$9.apply(Partition.scala:442)
+	at kafka.cluster.Partition$$anonfun$9.apply(Partition.scala:428)
+	at kafka.utils.CoreUtils$.inLock(CoreUtils.scala:262)
+	at kafka.utils.CoreUtils$.inReadLock(CoreUtils.scala:268)
+	at kafka.cluster.Partition.appendMessagesToLeader(Partition.scala:428)
+	at kafka.server.ReplicaManager$$anonfun$appendToLocalLog$2.apply(ReplicaManager.scala:401)
+	at kafka.server.ReplicaManager$$anonfun$appendToLocalLog$2.apply(ReplicaManager.scala:386)
+	at scala.collection.TraversableLike$$anonfun$map$1.apply(TraversableLike.scala:244)
+	at scala.collection.TraversableLike$$anonfun$map$1.apply(TraversableLike.scala:244)
+	at scala.collection.mutable.HashMap$$anonfun$foreach$1.apply(HashMap.scala:98)
+	at scala.collection.mutable.HashMap$$anonfun$foreach$1.apply(HashMap.scala:98)
+	at scala.collection.mutable.HashTable$class.foreachEntry(HashTable.scala:226)
+	at scala.collection.mutable.HashMap.foreachEntry(HashMap.scala:39)
+	at scala.collection.mutable.HashMap.foreach(HashMap.scala:98)
+	at scala.collection.TraversableLike$class.map(TraversableLike.scala:244)
+	at scala.collection.AbstractTraversable.map(Traversable.scala:105)
+	at kafka.server.ReplicaManager.appendToLocalLog(ReplicaManager.scala:386)
+	at kafka.server.ReplicaManager.appendMessages(ReplicaManager.scala:322)
+	at kafka.server.KafkaApis.handleProducerRequest(KafkaApis.scala:365)
+	at kafka.server.KafkaApis.handle(KafkaApis.scala:68)
+	at kafka.server.KafkaRequestHandler.run(KafkaRequestHandler.scala:60)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.io.FileNotFoundException: /home/ec2-user/diploma/kafka-logs/my-replicated-topic-0/00000000000000229104.index (No such file or directory)
+	at java.io.RandomAccessFile.open0(Native Method)
+	at java.io.RandomAccessFile.open(RandomAccessFile.java:316)
+	at java.io.RandomAccessFile.<init>(RandomAccessFile.java:243)
+	at kafka.log.OffsetIndex$$anonfun$resize$1.apply(OffsetIndex.scala:277)
+	at kafka.log.OffsetIndex$$anonfun$resize$1.apply(OffsetIndex.scala:276)
+	at kafka.utils.CoreUtils$.inLock(CoreUtils.scala:262)
+	at kafka.log.OffsetIndex.resize(OffsetIndex.scala:276)
+	at kafka.log.OffsetIndex$$anonfun$trimToValidSize$1.apply$mcV$sp(OffsetIndex.scala:265)
+	at kafka.log.OffsetIndex$$anonfun$trimToValidSize$1.apply(OffsetIndex.scala:265)
+	at kafka.log.OffsetIndex$$anonfun$trimToValidSize$1.apply(OffsetIndex.scala:265)
+	at kafka.utils.CoreUtils$.inLock(CoreUtils.scala:262)
+	at kafka.log.OffsetIndex.trimToValidSize(OffsetIndex.scala:264)
+	at kafka.log.Log.roll(Log.scala:627)
+	at kafka.log.Log.maybeRoll(Log.scala:602)
+	at kafka.log.Log.append(Log.scala:357)
+	... 22 more
+[main] INFO com.twitter.hbc.httpclient.BasicClient - New connection executed: sampleExampleClient, endpoint: /1.1/statuses/sample.json?delimited=length
+[hosebird-client-io-thread-0] INFO com.twitter.hbc.httpclient.ClientBase - sampleExampleClient Establishing a connection
+Did not receive a message in 1 second
+[hosebird-client-io-thread-0] INFO com.twitter.hbc.httpclient.ClientBase - sampleExampleClient Processing connection data
+Did not receive a message in 1 second
+[hosebird-client-io-thread-0] INFO com.twitter.hbc.httpclient.ClientBase - sampleExampleClient Disconnected during processing - will reconnect
+[hosebird-client-io-thread-0] INFO com.twitter.hbc.httpclient.ClientBase - sampleExampleClient Done processing, preparing to close connection
+[hosebird-client-io-thread-0] INFO com.twitter.hbc.httpclient.ClientBase - sampleExampleClient Establishing a connection
+[hosebird-client-io-thread-0] INFO com.twitter.hbc.httpclient.ClientBase - sampleExampleClient Processing connection data
+[hosebird-client-io-thread-0] INFO com.twitter.hbc.httpclient.ClientBase - sampleExampleClient Disconnected during processing - will reconnect
+[hosebird-client-io-thread-0] INFO com.twitter.hbc.httpclient.ClientBase - sampleExampleClient Done processing, preparing to close connection
+[hosebird-client-io-thread-0] INFO com.twitter.hbc.httpclient.ClientBase - sampleExampleClient Establishing a connection
+[hosebird-client-io-thread-0] INFO com.twitter.hbc.httpclient.ClientBase - sampleExampleClient Processing connection data
+[hosebird-client-io-thread-0] INFO com.twitter.hbc.httpclient.ClientBase - sampleExampleClient Disconnected during processing - will reconnect
+[hosebird-client-io-thread-0] INFO com.twitter.hbc.httpclient.ClientBase - sampleExampleClient Done processing, preparing to close connection
+[hosebird-client-io-thread-0] INFO com.twitter.hbc.httpclient.ClientBase - sampleExampleClient Establishing a connection
+[hosebird-client-io-thread-0] INFO com.twitter.hbc.httpclient.ClientBase - sampleExampleClient Processing connection data
+Did not receive a message in 1 second
+Did not receive a message in 1 second
+Did not receive a message in 1 second
+Did not receive a message in 1 second
+[main] INFO com.twitter.hbc.httpclient.BasicClient - Stopping the client: sampleExampleClient, endpoint: /1.1/statuses/sample.json?delimited=length
+[main] INFO com.twitter.hbc.httpclient.ClientBase - sampleExampleClient exit event - Stopped by user: waiting for 5000 ms
+[hosebird-client-io-thread-0] INFO com.twitter.hbc.httpclient.ClientBase - sampleExampleClient Done processing, preparing to close connection
+[hosebird-client-io-thread-0] INFO com.twitter.hbc.httpclient.ClientBase - sampleExampleClient Shutting down httpclient connection manager
+[main] INFO com.twitter.hbc.httpclient.BasicClient - Successfully stopped the client: sampleExampleClient, endpoint: /1.1/statuses/sample.json?delimited=length

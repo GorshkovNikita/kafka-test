@@ -23,7 +23,7 @@ public class Main {
     public static int i = 0;
 
     public static void main(String[] args) throws TwitterException, InterruptedException, IOException {
-        Path path = Paths.get("/home/ngorshkov/diploma/tweets/json-tweets.txt");
+        Path path = Paths.get("/home/ec2-user/diploma/tweets/json-tweets.txt");
         Integer rate;
         if (args.length < 1) {
             System.out.println("Arguments not found");
@@ -62,18 +62,18 @@ public class Main {
 //            producer.send(new ProducerRecord<>("my-replicated-topic", Integer.toString(getNextInt()), line));
 //        });
 
-        BlockingQueue<String> tweets = new LinkedBlockingQueue<>();
-        Thread readingThread = new Thread(new Reading(path, tweets));
-        readingThread.setDaemon(true);
-        readingThread.start();
-        //try (BufferedReader br = new BufferedReader(new FileReader(path.toString()))) {
-        try {
+        //BlockingQueue<String> tweets = new LinkedBlockingQueue<>();
+        //Thread readingThread = new Thread(new Reading(path, tweets));
+        //readingThread.setDaemon(true);
+        //readingThread.start();
+        try (BufferedReader br = new BufferedReader(new FileReader(path.toString()))) {
+        //try {
             String line = null;
             do {
                 long start = System.currentTimeMillis();
                 for (int i = 0; i < rate; i++) {
-                    // line = br.readLine();
-                    line = tweets.poll();
+                    line = br.readLine();
+                    //line = tweets.poll();
                     if (line != null) {
                         producer.send(new ProducerRecord<>("my-replicated-topic", Integer.toString(getNextInt()), line));
                     }
@@ -87,7 +87,7 @@ public class Main {
                     System.out.println(sleepTime + " is negative");
             } while (line != null);
         }
-        catch (InterruptedException /*| IOException*/ | IllegalArgumentException ex) {
+        catch (InterruptedException | IOException | IllegalArgumentException ex) {
             ex.printStackTrace();
         }
 
