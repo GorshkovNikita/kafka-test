@@ -3,18 +3,11 @@ package diploma.producer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.common.metrics.Stat;
-import twitter4j.Status;
 import twitter4j.TwitterException;
-import twitter4j.TwitterObjectFactory;
 
 import java.io.*;
 import java.nio.file.*;
 import java.util.Properties;
-import java.util.Random;
-import java.util.UUID;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Created by Никита on 21.04.2016.
@@ -46,9 +39,6 @@ public class Main {
                 path = Paths.get(args[2]);
             sendFromFileToKafka(path, rate);
         }
-        else if (args[0].equals("")) {
-
-        }
         else if (args[0].equals("file")) {
             if (args.length == 2)
                 path = Paths.get(args[1]);
@@ -58,22 +48,12 @@ public class Main {
 
     public static void sendFromFileToKafka(Path path, Integer rate) throws IOException {
         Producer<String, String> producer = createProducer();
-//        Files.lines(path).forEach((line) -> {
-//            producer.send(new ProducerRecord<>("my-replicated-topic", Integer.toString(getNextInt()), line));
-//        });
-
-        //BlockingQueue<String> tweets = new LinkedBlockingQueue<>();
-        //Thread readingThread = new Thread(new Reading(path, tweets));
-        //readingThread.setDaemon(true);
-        //readingThread.start();
         try (BufferedReader br = new BufferedReader(new FileReader(path.toString()))) {
-        //try {
             String line = null;
             do {
                 long start = System.currentTimeMillis();
                 for (int i = 0; i < rate; i++) {
                     line = br.readLine();
-                    //line = tweets.poll();
                     if (line != null) {
                         producer.send(new ProducerRecord<>("my-replicated-topic", Integer.toString(getNextInt()), line));
                     }
@@ -90,7 +70,6 @@ public class Main {
         catch (InterruptedException | IOException | IllegalArgumentException ex) {
             ex.printStackTrace();
         }
-
         producer.close();
     }
 
