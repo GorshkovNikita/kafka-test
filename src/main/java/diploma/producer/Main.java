@@ -50,22 +50,36 @@ public class Main {
         Producer<String, String> producer = createProducer();
         try (BufferedReader br = new BufferedReader(new FileReader(path.toString()))) {
             String line = null;
-            do {
-                long start = System.currentTimeMillis();
-                for (int i = 0; i < rate; i++) {
+            long globalStart = System.currentTimeMillis();
+            if (rate != 0) {
+                do {
+                    long start = System.currentTimeMillis();
+                    for (int i = 0; i < rate; i++) {
+                        line = br.readLine();
+                        if (line != null) {
+                            producer.send(new ProducerRecord<>("my-replicated-topic", Integer.toString(getNextInt()), line));
+                        } else break;
+                    }
+                    long finish = System.currentTimeMillis() - start;
+                    long sleepTime = 1000 - finish;
+                    if (sleepTime > 0)
+                        Thread.sleep(sleepTime);
+                    else
+                        System.out.println(sleepTime + " is negative");
+                } while (line != null);
+            }
+            else {
+                System.out.println("I am reading with max rate");
+                do {
                     line = br.readLine();
                     if (line != null) {
                         producer.send(new ProducerRecord<>("my-replicated-topic", Integer.toString(getNextInt()), line));
                     }
-                    else break;
-                }
-                long finish = System.currentTimeMillis() - start;
-                long sleepTime = 1000 - finish;
-                if (sleepTime > 0)
-                    Thread.sleep(sleepTime);
-                else
-                    System.out.println(sleepTime + " is negative");
-            } while (line != null);
+                } while (line != null);
+            }
+            long globalFinish = System.currentTimeMillis() - globalStart;
+            System.out.println(globalFinish / 1000 + " seconds");
+            br.close();
         }
         catch (InterruptedException | IOException | IllegalArgumentException ex) {
             ex.printStackTrace();
