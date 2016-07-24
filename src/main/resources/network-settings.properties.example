@@ -1,4 +1,4 @@
 zookeeper.ip=192.168.1.21
 zookeeper.port=2181
 kafka.broker.list=192.168.1.22:9092
-kafka.topic="my-replicated-topic"
+kafka.topic=my-replicated-topic
