@@ -57,7 +57,7 @@ public class Main {
                     for (int i = 0; i < rate; i++) {
                         line = br.readLine();
                         if (line != null) {
-                            producer.send(new ProducerRecord<>("my-replicated-topic", Integer.toString(getNextInt()), line));
+                            producer.send(new ProducerRecord<>(Config.KAFKA_TOPIC, Integer.toString(getNextInt()), line));
                         } else break;
                     }
                     long finish = System.currentTimeMillis() - start;
@@ -73,7 +73,7 @@ public class Main {
                 do {
                     line = br.readLine();
                     if (line != null) {
-                        producer.send(new ProducerRecord<>("my-replicated-topic", Integer.toString(getNextInt()), line));
+                        producer.send(new ProducerRecord<>(Config.KAFKA_TOPIC, Integer.toString(getNextInt()), line));
                     }
                 } while (line != null);
             }
@@ -123,7 +123,7 @@ public class Main {
 
     public static Producer<String, String> createProducer() {
         Properties props = new Properties();
-        props.put("bootstrap.servers", "172.31.16.35:9092");
+        props.put("bootstrap.servers", Config.KAFKA_BROKER_LIST);
         props.put("acks", "all");
         props.put("retries", 0);
         props.put("batch.size", 16384);
