@@ -60,6 +60,7 @@ public class Main {
                             producer.send(new ProducerRecord<>(Config.KAFKA_TOPIC, Integer.toString(getNextInt()), line));
                         } else break;
                     }
+                    System.gc();
                     long finish = System.currentTimeMillis() - start;
                     long sleepTime = 1000 - finish;
                     if (sleepTime > 0)
