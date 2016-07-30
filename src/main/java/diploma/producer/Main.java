@@ -52,17 +52,22 @@ public class Main {
             String line = null;
             long globalStart = System.currentTimeMillis();
             if (rate != 0) {
+                Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
                 do {
                     long start = System.currentTimeMillis();
+                    long sendTime = 0;
                     for (int i = 0; i < rate; i++) {
                         line = br.readLine();
                         if (line != null) {
+                            long startSendTime = System.currentTimeMillis();
                             producer.send(new ProducerRecord<>(Config.KAFKA_TOPIC, Integer.toString(getNextInt()), line));
+                            sendTime += System.currentTimeMillis() - startSendTime;
                         } else break;
                     }
                     System.gc();
                     long finish = System.currentTimeMillis() - start;
                     long sleepTime = 1000 - finish;
+                    System.out.println("sendTime = " + sendTime);
                     if (sleepTime > 0)
                         Thread.sleep(sleepTime);
                     else
