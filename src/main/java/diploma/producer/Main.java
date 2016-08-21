@@ -82,7 +82,13 @@ public class Main {
                             long startSendTime = System.currentTimeMillis();
                             producer.send(new ProducerRecord<>(Config.KAFKA_TOPIC, Integer.toString(getNextInt()), line));
                             sendTime += System.currentTimeMillis() - startSendTime;
-                        } else break;
+                        }
+                        else if (line != null && line.equals("")) {
+                            while (line.equals("")) {
+                                line = br.readLine();
+                            }
+                        }
+                        else break;
                     }
                     System.gc();
                     long finish = System.currentTimeMillis() - start;
