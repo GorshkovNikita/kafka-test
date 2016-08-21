@@ -56,6 +56,13 @@ public class Main {
                 }
                 sendFromFileToFile(jsonPath, purePath);
                 break;
+            case "delete":
+                if (args.length == 3) {
+                    jsonPath = Paths.get(args[1]);
+                    purePath = Paths.get(args[2]);
+                }
+                deleteEmptyStrings(jsonPath, purePath);
+                break;
         }
     }
 
@@ -131,18 +138,18 @@ public class Main {
             } else {
                 i++;
                 jsonWriter.append(msg);
-                String text;
-                try {
-                    text = TwitterObjectFactory.createStatus(msg).getText();
-                }
-                catch (TwitterException ex) {
-                    text = "";
-                }
-                if (!text.equals("")) {
-                    text = StringEscapeUtils.escapeJava(text);
-                    pureWriter.append(text);
-                    pureWriter.append(System.getProperty("line.separator"));
-                }
+//                String text;
+//                try {
+//                    text = TwitterObjectFactory.createStatus(msg).getText();
+//                }
+//                catch (TwitterException ex) {
+//                    text = "";
+//                }
+//                if (!text.equals("")) {
+//                    text = StringEscapeUtils.escapeJava(text);
+//                    pureWriter.append(text);
+//                    pureWriter.append(System.getProperty("line.separator"));
+//                }
             }
         }
         jsonWriter.close();
@@ -173,6 +180,29 @@ public class Main {
         tweetsWriter.close();
     }
 
+    public static void deleteEmptyStrings(Path sourcePath, Path destinationPath) throws IOException {
+        if (!Files.exists(sourcePath))
+            return;
+        if (!Files.exists(destinationPath))
+            Files.createFile(destinationPath);
+        FileWriter tweetsWriter = new FileWriter(destinationPath.toFile());
+        try (BufferedReader br = new BufferedReader(new FileReader(sourcePath.toString()))) {
+            String line = null;
+            do {
+                line = br.readLine();
+                if (line != null && !line.equals("")) {
+                    tweetsWriter.append(line);
+                    tweetsWriter.append(System.getProperty("line.separator"));
+                }
+            } while (line != null);
+            br.close();
+        }
+        catch (IOException | IllegalArgumentException ex) {
+            ex.printStackTrace();
+        }
+        tweetsWriter.close();
+    }
+
     public static int getNextInt() {
         return ++i;
     }
@@ -182,7 +212,7 @@ public class Main {
         props.put("bootstrap.servers", Config.KAFKA_BROKER_LIST);
         props.put("acks", "all");
         props.put("retries", 0);
-        props.put("batch.size", 16384);
+        props.put("batch.size", 8192);
         props.put("linger.ms", 1);
         props.put("buffer.memory", 33554432);
         props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
