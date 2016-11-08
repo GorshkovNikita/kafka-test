@@ -27,8 +27,10 @@ public class TwitterStreamConnection {
 
     private TwitterStreamConnection(String consumerKey, String consumerSecret, String token, String secret) {
         this.messageQueue = new LinkedBlockingQueue<>(10000);
-        StatusesEndpoint endpoint = new StatusesEndpoint();
+//        StatusesEndpoint endpoint = new StatusesEndpoint();
+        StatusesFilterEndpoint endpoint = new StatusesFilterEndpoint();
         endpoint.languages(new ArrayList<>(Arrays.asList("en")));
+        endpoint.trackTerms(new ArrayList<>(Arrays.asList("football", "ucl", "uefa", "Champions League")));
         endpoint.stallWarnings(false);
         Authentication auth = new OAuth1(consumerKey, consumerSecret, token, secret);
         this.client = new ClientBuilder()

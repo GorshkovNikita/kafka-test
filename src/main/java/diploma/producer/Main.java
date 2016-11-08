@@ -1,15 +1,21 @@
 package diploma.producer;
 
+import com.google.gson.Gson;
+import diploma.nlp.TextNormalizer;
+import edu.stanford.nlp.simple.Document;
+import edu.stanford.nlp.simple.Sentence;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import twitter4j.Status;
 import twitter4j.TwitterException;
 import twitter4j.TwitterObjectFactory;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -19,6 +25,7 @@ public class Main {
     public static int i = 0;
 
     public static void main(String[] args) throws TwitterException, InterruptedException, IOException {
+        // TODO: убрать дефолтные названия и добавить эксепшены, если количество входных данных неверно
         Path jsonPath = Paths.get("D:\\MSU\\diploma\\json-tweets.txt");
         Path purePath = Paths.get("D:\\MSU\\diploma\\pure-tweets.txt");
         Integer rate;
@@ -55,6 +62,13 @@ public class Main {
                     purePath = Paths.get(args[2]);
                 }
                 sendFromFileToFile(jsonPath, purePath);
+                break;
+            case "transform":
+                if (args.length == 3) {
+                    jsonPath = Paths.get(args[1]);
+                    purePath = Paths.get(args[2]);
+                }
+                transformTweets(jsonPath, purePath);
                 break;
             case "delete":
                 if (args.length == 3) {
@@ -124,6 +138,7 @@ public class Main {
                 "IUxjGCksxWJiBlQ5PMsp5O8ksT7ZAsTDspOQafm46gSkYnII4u",
                 "4482173056-cZrtVBDKyRoeciGNs0JaDBtaNgGEl1IHKIckeSI",
                 "1nCVck1dtozb334vxlyca9Wb3Gq5ob7USXEX5sIqmIugs").getClient().connect();
+        TextNormalizer textNormalizer = new TextNormalizer();
 
         if (!Files.exists(jsonPath))
             Files.createFile(jsonPath);
@@ -142,25 +157,63 @@ public class Main {
             if (msg == null) {
                 System.out.println("Did not receive a message in 1 second");
             } else {
-                i++;
-                jsonWriter.append(msg);
-//                String text;
-//                try {
-//                    text = TwitterObjectFactory.createStatus(msg).getText();
-//                }
-//                catch (TwitterException ex) {
-//                    text = "";
-//                }
-//                if (!text.equals("")) {
-//                    text = StringEscapeUtils.escapeJava(text);
-//                    pureWriter.append(text);
-//                    pureWriter.append(System.getProperty("line.separator"));
-//                }
+                try {
+                    Status status = TwitterObjectFactory.createStatus(msg);
+                    Tweet tweet = new Tweet(status);
+                    System.out.println(tweet.getDate().toString() + " " + tweet.getText());
+                    jsonWriter.append(msg);
+                    Gson gson = new Gson();
+                    String json = gson.toJson(tweet);
+                    pureWriter.append(json + "\n");
+                    i++;
+                }
+                catch (TwitterException ex) {
+                    System.err.println("can not create tweet for json = " + msg);
+                }
             }
         }
         jsonWriter.close();
         pureWriter.close();
         TwitterStreamConnection.getInstance().getClient().stop();
+    }
+
+    public static void transformTweets(Path sourcePath, Path destinationPath) throws IOException {
+        if (!Files.exists(destinationPath))
+            Files.createFile(destinationPath);
+        FileWriter tweetsWriter = new FileWriter(destinationPath.toFile(), true);
+        try (BufferedReader br = new BufferedReader(new FileReader(sourcePath.toString()))) {
+            String line = null;
+            do {
+                line = br.readLine();
+                if (line != null && !line.equals("")) {
+                    try {
+                        Status status = TwitterObjectFactory.createStatus(line);
+                        tweetsWriter.append(Long.toString(status.getId()))
+                                .append('\t')
+                                .append(status.getCreatedAt().toString())
+                                .append('\t')
+                                .append(StringEscapeUtils.escapeJava(status.getText()))
+                                .append('\t')
+                                .append(Integer.toString(status.getRetweetCount()))
+                                .append('\t');
+                        if (status.getGeoLocation() != null) {
+                            tweetsWriter.append(Double.toString(status.getGeoLocation().getLatitude()))
+                                    .append(",")
+                                    .append(Double.toString(status.getGeoLocation().getLongitude()));
+                        }
+                        tweetsWriter.append(System.getProperty("line.separator"));
+                    }
+                    catch (TwitterException ex) {
+                        System.err.println("can not create tweet for json = " + line);
+                    }
+                }
+            } while (line != null);
+            br.close();
+            tweetsWriter.close();
+        }
+        catch (IOException | IllegalArgumentException ex) {
+            ex.printStackTrace();
+        }
     }
 
     public static void sendFromFileToFile(Path sourcePath, Path destinationPath) throws IOException {
@@ -173,7 +226,8 @@ public class Main {
             do {
                 line = br.readLine();
                 if (line != null && !line.equals("")) {
-                    line = StringEscapeUtils.escapeJava(line);
+                    String[] lines = line.split("=");
+                    line = StringEscapeUtils.escapeJava(lines[1]);
                     tweetsWriter.append(line);
                     tweetsWriter.append(System.getProperty("line.separator"));
                 }
