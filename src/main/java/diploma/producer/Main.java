@@ -1,9 +1,5 @@
 package diploma.producer;
 
-import com.google.gson.Gson;
-import diploma.nlp.TextNormalizer;
-import edu.stanford.nlp.simple.Document;
-import edu.stanford.nlp.simple.Sentence;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
@@ -12,10 +8,17 @@ import twitter4j.Status;
 import twitter4j.TwitterException;
 import twitter4j.TwitterObjectFactory;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.*;
+import javax.xml.soap.Text;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -34,6 +37,9 @@ public class Main {
             return;
         }
         switch (args[0]) {
+            case "top-terms":
+                findTopTerms();
+                break;
             case "kafka":
                 if (args.length < 2) {
                     System.out.println("Rate not found");
@@ -78,6 +84,40 @@ public class Main {
                 deleteEmptyStrings(jsonPath, purePath);
                 break;
         }
+    }
+
+    private static void findTopTerms() {
+        TwitterStreamConnection.getInstance("YOcgp2ovL8js849lx8hbnvxcf",
+                "IUxjGCksxWJiBlQ5PMsp5O8ksT7ZAsTDspOQafm46gSkYnII4u",
+                "4482173056-cZrtVBDKyRoeciGNs0JaDBtaNgGEl1IHKIckeSI",
+                "1nCVck1dtozb334vxlyca9Wb3Gq5ob7USXEX5sIqmIugs").getClient().connect();
+
+        Map<String, Integer> topTerms = new HashMap<>();
+        while (true) {
+            if (TwitterStreamConnection.getInstance().getClient().isDone()) {
+                System.out.println("Client connection closed unexpectedly: " + TwitterStreamConnection.getInstance().getClient().getExitEvent().getMessage());
+                break;
+            }
+
+            String msg = TwitterStreamConnection.getNextMessage();
+            if (msg == null) {
+                System.out.println("Did not receive a message in 1 second");
+            } else {
+                try {
+                    Status status = TwitterObjectFactory.createStatus(msg);
+                    String[] terms = TextNormalizer.getInstance().normalizeToString(status.getText()).split(" ");
+                    for (String term: terms) {
+                        if (!topTerms.containsKey(term)) topTerms.put(term, 1);
+                        else topTerms.put(term, topTerms.get(term) + 1);
+                    }
+                    i++;
+                }
+                catch (TwitterException ex) {
+                    System.err.println("can not create tweet for json = " + msg);
+                }
+            }
+        }
+        TwitterStreamConnection.getInstance().getClient().stop();
     }
 
     public static void sendFromFileToKafka(Path path, Integer rate) throws IOException {
@@ -138,14 +178,14 @@ public class Main {
                 "IUxjGCksxWJiBlQ5PMsp5O8ksT7ZAsTDspOQafm46gSkYnII4u",
                 "4482173056-cZrtVBDKyRoeciGNs0JaDBtaNgGEl1IHKIckeSI",
                 "1nCVck1dtozb334vxlyca9Wb3Gq5ob7USXEX5sIqmIugs").getClient().connect();
-        TextNormalizer textNormalizer = new TextNormalizer();
+//        TextNormalizer textNormalizer = new TextNormalizer();
 
         if (!Files.exists(jsonPath))
             Files.createFile(jsonPath);
         if (!Files.exists(purePath))
             Files.createFile(purePath);
         FileWriter jsonWriter = new FileWriter(jsonPath.toFile(), true);
-        FileWriter pureWriter = new FileWriter(purePath.toFile(), true);
+//        FileWriter pureWriter = new FileWriter(purePath.toFile(), true);
         int i = 0;
         while (true) {
             if (TwitterStreamConnection.getInstance().getClient().isDone()) {
@@ -162,9 +202,9 @@ public class Main {
                     Tweet tweet = new Tweet(status);
                     System.out.println(tweet.getDate().toString() + " " + tweet.getText());
                     jsonWriter.append(msg);
-                    Gson gson = new Gson();
-                    String json = gson.toJson(tweet);
-                    pureWriter.append(json + "\n");
+//                    Gson gson = new Gson();
+//                    String json = gson.toJson(tweet);
+//                    pureWriter.append(json + "\n");
                     i++;
                 }
                 catch (TwitterException ex) {
@@ -173,10 +213,16 @@ public class Main {
             }
         }
         jsonWriter.close();
-        pureWriter.close();
+//        pureWriter.close();
         TwitterStreamConnection.getInstance().getClient().stop();
     }
 
+    /**
+     * Преобразование твитов, собранных мной в формат, необходимый для работы программы online-denstream
+     * @param sourcePath - файл с моими твитами
+     * @param destinationPath - файл в новом формате
+     * @throws IOException
+     */
     public static void transformTweets(Path sourcePath, Path destinationPath) throws IOException {
         if (!Files.exists(destinationPath))
             Files.createFile(destinationPath);

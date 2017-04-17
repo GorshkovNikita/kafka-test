@@ -27,10 +27,17 @@ public class TwitterStreamConnection {
 
     private TwitterStreamConnection(String consumerKey, String consumerSecret, String token, String secret) {
         this.messageQueue = new LinkedBlockingQueue<>(10000);
-//        StatusesEndpoint endpoint = new StatusesEndpoint();
         StatusesFilterEndpoint endpoint = new StatusesFilterEndpoint();
+//        StatusesEndpoint endpoint = new StatusesEndpoint();
+        Location usa = new Location(new Location.Coordinate(-123.730725, 24.323892), new Location.Coordinate(-62.844275, 48.555015));
+//        Location newYork = new Location(new Location.Coordinate(-77.505715, 38.615968), new Location.Coordinate(-73.289025, 41.207485));
+//        Location california = new Location(new Location.Coordinate(-125.895387, 31.452910), new Location.Coordinate(-119.488694, 42.239864));
+        List<Location> locations = new ArrayList<>();
+        locations.add(usa);
+//        endpoint.locations(locations);
         endpoint.languages(new ArrayList<>(Arrays.asList("en")));
-        endpoint.trackTerms(new ArrayList<>(Arrays.asList("football", "ucl", "uefa", "Champions League")));
+        endpoint.trackTerms(new ArrayList<>(Arrays.asList("sports", "sport", "football", "cycling", "snooker", "tennis", "hockey",
+                "basketball", "golf", "skiing", "baseball", "volleyball", "boxing", "rugby", "athletics", "cricket", "soccer", "formula1")));
         endpoint.stallWarnings(false);
         Authentication auth = new OAuth1(consumerKey, consumerSecret, token, secret);
         this.client = new ClientBuilder()
