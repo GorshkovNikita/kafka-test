@@ -122,6 +122,8 @@ public class Main {
 
     public static void sendFromFileToKafka(Path path, Integer rate) throws IOException {
         Producer<String, String> producer = createProducer();
+        BufferedReader reader = new BufferedReader(new FileReader(path.toString()));
+        int numberOfReadLines = 0;
         try (BufferedReader br = new BufferedReader(new FileReader(path.toString()))) {
             String line = null;
             long globalStart = System.currentTimeMillis();
@@ -147,7 +149,8 @@ public class Main {
                     System.gc();
                     long finish = System.currentTimeMillis() - start;
                     long sleepTime = 1000 - finish;
-                    System.out.println("sendTime = " + sendTime);
+                    numberOfReadLines += rate;
+                    System.out.println("sendTime = " + sendTime + ". Read " + numberOfReadLines + " lines");
                     if (sleepTime > 0)
                         Thread.sleep(sleepTime);
                     else
@@ -234,19 +237,29 @@ public class Main {
                 if (line != null && !line.equals("")) {
                     try {
                         Status status = TwitterObjectFactory.createStatus(line);
+
+                        // for MALLET LDA
                         tweetsWriter.append(Long.toString(status.getId()))
-                                .append('\t')
-                                .append(status.getCreatedAt().toString())
-                                .append('\t')
-                                .append(StringEscapeUtils.escapeJava(status.getText()))
-                                .append('\t')
-                                .append(Integer.toString(status.getRetweetCount()))
-                                .append('\t');
-                        if (status.getGeoLocation() != null) {
-                            tweetsWriter.append(Double.toString(status.getGeoLocation().getLatitude()))
-                                    .append(",")
-                                    .append(Double.toString(status.getGeoLocation().getLongitude()));
-                        }
+                                .append(' ')
+                                .append("whatever ")
+//                                .append(StringEscapeUtils.escapeJava(status.getText()))
+                                .append(status.getText())
+                        ;
+
+                        // for denstream
+//                        tweetsWriter.append(Long.toString(status.getId()))
+//                                .append('\t')
+//                                .append(status.getCreatedAt().toString())
+//                                .append('\t')
+//                                .append(StringEscapeUtils.escapeJava(status.getText()))
+//                                .append('\t')
+//                                .append(Integer.toString(status.getRetweetCount()))
+//                                .append('\t');
+//                        if (status.getGeoLocation() != null) {
+//                            tweetsWriter.append(Double.toString(status.getGeoLocation().getLatitude()))
+//                                    .append(",")
+//                                    .append(Double.toString(status.getGeoLocation().getLongitude()));
+//                        }
                         tweetsWriter.append(System.getProperty("line.separator"));
                     }
                     catch (TwitterException ex) {
